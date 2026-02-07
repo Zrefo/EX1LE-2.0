@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const { Client, Collection, Intents } = require('discord.js');
 const { token, prefix } = require('./config.json');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 
 // Tworzymy klienta
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
@@ -37,8 +39,26 @@ if (fs.existsSync(eventsPath)) {
 }
 
 // --- Event ready minimalny ---
-client.once('ready', () => {
+client.once('ready', async () => {
     console.log(`Bot zalogowany jako ${client.user.tag}!`);
+
+    // --- Rejestracja slash komend globalnie ---
+    const slashCommands = client.commands.map(cmd => ({
+        name: cmd.name,
+        description: cmd.description
+    }));
+
+    const rest = new REST({ version: '9' }).setToken(token);
+    try {
+        console.log('Rejestracja slash komend...');
+        await rest.put(
+            Routes.applicationCommands(client.user.id),
+            { body: slashCommands }
+        );
+        console.log('Slash komendy zarejestrowane!');
+    } catch (error) {
+        console.error('Błąd podczas rejestracji slash komend:', error);
+    }
 });
 
 // Logowanie bota
