@@ -1,0 +1,21 @@
+{
+  "name": "EX1LE-2.0",
+  "version": "1.0.0",
+  "description": "Discord bot for the EX1LE guild in node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "nodejs"
+  ],
+  "author": "Zrefo",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.0",
+    "discord-api-types": "^0.37.38",
+    "@discordjs/rest": "^1.6.0"
+  }
+}
