@@ -5,14 +5,11 @@ const { token, prefix } = require('./config.json');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
-// Tworzymy klienta
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-// Kolekcje na komendy
 client.commands = new Collection();
 client.prefix = prefix;
 
-// --- Ładowanie komend ---
 const commandsPath = path.join(__dirname, 'commands');
 if (fs.existsSync(commandsPath)) {
     fs.readdirSync(commandsPath).forEach(file => {
@@ -23,7 +20,6 @@ if (fs.existsSync(commandsPath)) {
     });
 }
 
-// --- Ładowanie eventów ---
 const eventsPath = path.join(__dirname, 'events');
 if (fs.existsSync(eventsPath)) {
     fs.readdirSync(eventsPath).forEach(file => {
@@ -38,11 +34,9 @@ if (fs.existsSync(eventsPath)) {
     });
 }
 
-// --- Event ready minimalny ---
 client.once('ready', async () => {
     console.log(`Bot zalogowany jako ${client.user.tag}!`);
 
-    // --- Rejestracja slash komend globalnie ---
     const slashCommands = client.commands.map(cmd => ({
         name: cmd.name,
         description: cmd.description
@@ -61,5 +55,4 @@ client.once('ready', async () => {
     }
 });
 
-// Logowanie bota
 client.login(token);
