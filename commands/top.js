@@ -1,10 +1,12 @@
-const { createCanvas } = require("canvas");
-const { getData } = require("../utils/levels");
+const { createCanvas, loadImage, registerFont } = require("canvas");
+const { load } = require("../utils/levels");
+
+registerFont("./assets/fonts/blood.ttf", { family: "Blood" });
 
 module.exports = {
   name: "top",
   async execute(message) {
-    const data = getData();
+    const data = load();
 
     const sorted = Object.entries(data)
       .sort((a, b) => b[1].level - a[1].level)
@@ -13,13 +15,15 @@ module.exports = {
     const canvas = createCanvas(450, 800);
     const ctx = canvas.getContext("2d");
 
-    ctx.fillStyle = "#1e1e2f";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const bg = await loadImage("./assets/backgrounds/top.png");
+    ctx.drawImage(bg, 0, 0, 450, 800);
 
-    ctx.font = "bold 22px Arial";
-    ctx.fillStyle = "#9b59b6";
+    ctx.font = "bold 20px Blood";
+    ctx.fillStyle = "#8e44ad";
+    ctx.shadowColor = "#FFD700";
+    ctx.shadowBlur = 8;
 
-    let y = 80;
+    let y = 100;
     for (let i = 0; i < sorted.length; i++) {
       const user = await message.client.users.fetch(sorted[i][0]);
       ctx.fillText(
@@ -27,7 +31,7 @@ module.exports = {
         40,
         y
       );
-      y += 60;
+      y += 55;
     }
 
     message.reply({
