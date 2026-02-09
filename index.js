@@ -13,14 +13,14 @@ const client = new Client({
 
 client.commands = new Collection();
 
-fs.readdirSync("./events").forEach(file => {
+for (const file of fs.readdirSync("./events")) {
   const event = require(`./events/${file}`);
   client.on(event.name, (...args) => event.execute(...args, client));
-});
+}
 
-fs.readdirSync("./commands").forEach(file => {
+for (const file of fs.readdirSync("./commands")) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
-});
+}
 
 client.login(config.token);
