@@ -20,6 +20,7 @@ module.exports = {
         }
 
         if (interaction.isButton()) {
+
             if (interaction.customId === 'open_ticket') {
                 const modal = new ModalBuilder()
                     .setCustomId(`ticket_modal_${interaction.user.id}`)
@@ -46,7 +47,7 @@ module.exports = {
             else if (interaction.customId === 'close_ticket') {
                 const channel = interaction.channel;
 
-                const memberId = channel.name.split('-').pop(); 
+                const memberId = channel.name.split('-').pop();
                 const member = channel.guild.members.cache.get(memberId);
                 if (member) {
                     await channel.permissionOverwrites.edit(member.id, { ViewChannel: false });
@@ -54,7 +55,7 @@ module.exports = {
 
                 await channel.setParent('1270211226269646951');
 
-                const timestamp = Math.floor(Date.now() / 1000) + 24 * 60 * 60; 
+                const timestamp = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
                 await channel.send(`> **This ticket will be deleted in <t:${timestamp}:R>**`);
 
                 setTimeout(() => {
@@ -69,12 +70,12 @@ module.exports = {
                 const nickname = interaction.fields.getTextInputValue('ticket_nickname');
                 const issue = interaction.fields.getTextInputValue('ticket_issue');
 
-                const categoryId = '1270135140546383942'; 
-                const roleId = '1270155595105701908'; 
+                const categoryId = '1270135140546383942';
+                const roleId = '1270155595105701908';
 
                 const channel = await interaction.guild.channels.create({
                     name: `ticket-${interaction.user.username}`,
-                    type: 0, 
+                    type: 0,
                     parent: categoryId,
                     permissionOverwrites: [
                         {
@@ -96,14 +97,13 @@ module.exports = {
                 const messageData = JSON.parse(fs.readFileSync(createdMessagePath, 'utf8'));
 
                 await channel.send({
-                    content: `Nickname: \`${nickname}\`\nIssue: \`${issue}\``,
+                    content: `**✨Nickname: \`${nickname}\`\n⚠️Issue: \`${issue}\`\nPlease avoid pinging, I already did it :) <@&1270155595105701908>**`,
                     components: messageData.components
                 });
 
-                await interaction.reply({ content: `Your ticket has been created: ${channel}`, ephemeral: true });
+                await interaction.reply({ content: `**Your ticket has been created:** ${channel}`, ephemeral: true });
             }
             return;
         }
     }
 };
-
