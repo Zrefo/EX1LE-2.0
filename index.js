@@ -47,7 +47,7 @@ client.once('ready', async () => {
         client.user.setPresence({
             activities: [{
                 name: `With ${totalMembersWithRole} mates ✨`,
-                type: 0 
+                type: 0
             }],
             status: 'online'
         });
