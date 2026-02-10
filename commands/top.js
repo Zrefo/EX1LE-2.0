@@ -6,8 +6,8 @@ const path = require('path');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('top')
-        .setDescription('Wyświetla top 10 użytkowników z największym poziomem'),
-    
+        .setDescription('Displays the TOP 10 people with the highest level'),
+
     async execute(interaction) {
         const levelsPath = path.join(__dirname, '../data/levels.json');
         if (!fs.existsSync(levelsPath)) {
@@ -22,20 +22,20 @@ module.exports = {
             .sort((a, b) => b.level - a.level || b.xp - a.xp)
             .slice(0, 10); // top 10
 
-        // Canvas
+        // Canvas 450x800
         const canvas = Canvas.createCanvas(450, 800);
         const ctx = canvas.getContext('2d');
 
-        // tło
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Załaduj tło
+        const background = await Canvas.loadImage(path.join(__dirname, '../assets/top-bg.png'));
+        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-        // ustawienia tekstu
+        // Tekst ustawienia
         ctx.fillStyle = '#9b59b6';
-        ctx.font = 'bold 30px sans-serif';
+        ctx.font = 'bold 28px sans-serif';
         ctx.textAlign = 'left';
 
-        let y = 50; // start od góry
+        let y = 100; // start od góry, żeby nie nachodziło na tło
 
         for (let i = 0; i < sorted.length; i++) {
             const entry = sorted[i];
