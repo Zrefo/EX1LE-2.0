@@ -1,0 +1,36 @@
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 17,
+      "components": [
+        {
+          "type": 10,
+          "content": "## SUPPORT TICKET"
+        },
+        {
+          "type": 10,
+          "content": "**Requirements:**\n- You must have an account connected to the HylexMC discord server\n- You must be an active player\n- You need to know what each mode is about\n- You must have 10 days play time"
+        },
+        {
+          "type": 9,
+          "components": [
+            {
+              "type": 10,
+              "content": "Click the button below to open your ticket ✨"
+            }
+          ],
+          "accessory": {
+            "type": 2,
+            "style": 3,
+            "label": "OPEN THE TICKET",
+            "custom_id": "open_ticket"
+          }
+        },
+        {
+          "type": 14
+        }
+      ]
+    }
+  ]
+}
