@@ -22,7 +22,6 @@ module.exports = {
         const canvas = Canvas.createCanvas(450, 800);
         const ctx = canvas.getContext('2d');
 
-        // Tło
         const background = await Canvas.loadImage(path.join(__dirname, '../assets/top-bg.png'));
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
@@ -31,7 +30,7 @@ module.exports = {
         ctx.shadowBlur = 20;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = 'bold 30px sans-serif'; // +2px w stosunku do starego
+        ctx.font = 'bold 30px sans-serif'; 
 
         let y = 100;
 
