@@ -7,7 +7,7 @@ const { xpToLevel } = require('../utils/levelHelper');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('rank')
-        .setDescription('Displays your level'),
+        .setDescription('Wyświetla Twój poziom'),
     
     async execute(interaction) {
         const levelsPath = path.join(__dirname, '../data/levels.json');
