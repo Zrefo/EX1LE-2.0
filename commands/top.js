@@ -30,7 +30,7 @@ module.exports = {
         ctx.shadowBlur = 20;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = 'bold 30px sans-serif'; 
+        ctx.font = 'bold 30px sans-serif';
 
         let y = 100;
 
