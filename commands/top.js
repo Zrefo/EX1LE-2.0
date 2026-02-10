@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('top')
-        .setDescription('Displays the TOP 10 people with the highest level'),
+        .setDescription('Wyświetla top 10 użytkowników z największym poziomem'),
 
     async execute(interaction) {
         const levelsPath = path.join(__dirname, '../data/levels.json');
