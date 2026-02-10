@@ -9,7 +9,7 @@ function updateLevel(userId) {
     const data = JSON.parse(fs.readFileSync(levelsPath, 'utf8'));
     if (!data[userId]) data[userId] = { xp: 0, level: 1 };
 
-    data[userId].xp += Math.floor(Math.random() * 10) + 5; // losowe XP
+    data[userId].xp += Math.floor(Math.random() * 10) + 5; 
     fs.writeFileSync(levelsPath, JSON.stringify(data, null, 2));
     return data[userId];
 }
