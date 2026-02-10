@@ -20,15 +20,12 @@ module.exports = {
             .sort((a, b) => b.level - a.level || b.xp - a.xp);
         const rank = sorted.findIndex(u => u.id === interaction.user.id) + 1;
 
-        // Canvas
         const canvas = Canvas.createCanvas(800, 350);
         const ctx = canvas.getContext('2d');
 
-        // Tło
         const background = await Canvas.loadImage(path.join(__dirname, '../assets/rank-bg.png'));
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-        // Awatar
         const avatar = await Canvas.loadImage(interaction.user.displayAvatarURL({ extension: 'png' }));
         ctx.save();
         ctx.beginPath();
@@ -38,7 +35,6 @@ module.exports = {
         ctx.drawImage(avatar, 325, 75, 150, 150);
         ctx.restore();
 
-        // Efekt glow i tekst
         ctx.shadowColor = '#b700ff';
         ctx.shadowBlur = 20;
         ctx.fillStyle = '#b700ff';
@@ -46,11 +42,9 @@ module.exports = {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
-        // Teksty
         ctx.fillText(`RANK: ${userData.level}`, 200, 150);
         ctx.fillText(`#${rank}`, 600, 150);
 
-        // Pasek postępu
         const nextLevelXP = Math.pow(userData.level / 0.1, 2);
         const progress = Math.min((userData.xp / nextLevelXP) * 100, 100);
 
@@ -59,32 +53,27 @@ module.exports = {
         const barX = 250;
         const barY = 260;
 
-        // Ramka paska
         ctx.strokeStyle = '#b700ff';
         ctx.lineWidth = 4;
         ctx.beginPath();
-        ctx.roundRect(barX, barY, barWidth, barHeight, 20); // zaokrąglone rogi
+        ctx.roundRect(barX, barY, barWidth, barHeight, 20); 
         ctx.stroke();
 
-        // Tło paska (czarne)
         ctx.fillStyle = '#000000';
         ctx.fillRect(barX, barY, barWidth, barHeight);
 
-        // Wypełnienie fioletowe z glow
         ctx.shadowColor = '#8e44ad';
         ctx.shadowBlur = 15;
         ctx.fillStyle = '#b300ff';
         ctx.fillRect(barX, barY, (progress / 100) * barWidth, barHeight);
         ctx.shadowBlur = 0;
 
-        // Procent na pasku
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 24px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(`${Math.floor(progress)}%`, barX + barWidth / 2, barY + barHeight / 2);
 
-        // Wyślij obraz
         const buffer = canvas.toBuffer();
         await interaction.reply({ files: [{ attachment: buffer, name: 'rank.png' }] });
     }
