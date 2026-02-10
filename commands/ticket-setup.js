@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ticket-setup')
         .setDescription('Setup ticket message')
-        .setDefaultMemberPermissions(0), 
+        .setDefaultMemberPermissions(0),
 
     async execute(interaction) {
         if (interaction.user.id !== '936390691603513374') {
@@ -24,4 +24,3 @@ module.exports = {
         interaction.reply({ content: 'Ticket system has been set up!', ephemeral: true });
     }
 };
-
